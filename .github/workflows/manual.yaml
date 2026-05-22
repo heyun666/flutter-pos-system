@@ -11,6 +11,11 @@ on:
         options:
           - release
           - debug
+      flutter_version:
+        description: 'Flutter SDK 版本'
+        required: true
+        default: '3.41.0'
+        type: string
 
 jobs:
   build-android:
@@ -27,16 +32,12 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: 设置 Flutter SDK (最新主分支)
+      - name: 设置 Flutter SDK
         uses: subosito/flutter-action@v2
         with:
-          channel: 'main'  # 使用最新版本以获得 Dart 3.11+
+          flutter-version: ${{ github.event.inputs.flutter_version }}
+          channel: 'stable'
           cache: true
-
-      - name: 检查版本
-        run: |
-          flutter --version
-          dart --version
 
       # 在 GitHub Actions 中替换 git 依赖地址
       - name: Replace broken git dependency
@@ -46,7 +47,7 @@ jobs:
       - name: 安装项目依赖
         run: flutter pub get
 
-      - name: 生成代码
+      - name: 生成代码 (如需要)
         run: flutter gen-l10n
 
       - name: 编译 Android APK
