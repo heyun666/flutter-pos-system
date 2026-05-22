@@ -43,7 +43,8 @@ jobs:
       - name: Replace broken git dependency
         run: |
           sed -i 's|https://github.com/evan361425/flutter-pos-packages|https://github.com/evan361425/flutter-pos-packages-mock|g' pubspec.yaml
-    
+          sed -i 's|2026.05.03-04|master|g' pubspec.yaml
+          
       - name: 安装项目依赖
         run: flutter pub get
 
