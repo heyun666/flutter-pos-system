@@ -38,6 +38,11 @@ jobs:
           flutter --version
           dart --version
 
+      # 在 GitHub Actions 中替换 git 依赖地址
+      - name: Replace broken git dependency
+        run: |
+          sed -i 's|https://github.com/evan361425/flutter-pos-packages|https://github.com/evan361425/flutter-pos-packages-mock|g' pubspec.yaml
+    
       - name: 安装项目依赖
         run: flutter pub get
 
