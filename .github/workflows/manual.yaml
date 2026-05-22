@@ -44,7 +44,10 @@ jobs:
         run: |
           sed -i 's|https://github.com/evan361425/flutter-pos-packages|https://github.com/evan361425/flutter-pos-packages-mock|g' pubspec.yaml
           sed -i 's|2026.05.03-04|master|g' pubspec.yaml
-          
+
+          # 查找 flutter_blue_plus 的 git 依赖行并添加 path 参数
+          sed -i '/flutter_blue_plus:/,/git:/ s|url: https://github.com/evan361425/flutter_blue_plus|url: https://github.com/evan361425/flutter_blue_plus\n      path: packages/flutter_blue_plus|' pubspec.yaml
+    
       - name: 安装项目依赖
         run: flutter pub get
 
